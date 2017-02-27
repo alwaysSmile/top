@@ -1,22 +1,34 @@
 //***************
-//Объект EventEmitter или сокращённо ee
-//var EventEmitter = require('events').EventEmitter;//Подключаем модуль events и берём соответствующее св-во EventEmitter
-//var server = new EventEmitter;
-//
-////Событие подписка: .on - метод, request - имя события, далее функция обработчик.
-////Можно указать много подписчиков и все они будут вызваны в том порядке,
-////в котором назначены
-//server.on('request', function(request) {
-//    request.approved = true;
-//});
-//
-//server.on('request', function(request) {
-//    console.log(request);
-//});
-////.emit - метод, генерирует событие - 'request' и передаёт данные,
-////эти данные попадают в функцию обработчик
-//server.emit('request', {from: "Клиент"});
-//server.emit('request', {from: "Ещё Клиент"});
+Объект EventEmitter или сокращённо ee
+var EventEmitter = require('events').EventEmitter;//Подключаем модуль events и берём соответствующее св-во EventEmitter
+var server = new EventEmitter;
+
+//Для генерации события используется вызов emit,
+//ему передаётся название события и какие-то аргументы, данные,
+//при этом он вызывает обработчики, назаначенные через on
+//Событие подписка: .on - метод, request - имя события, далее функция обработчик.
+//Можно указать много подписчиков и все они будут вызваны в том порядке,
+//в котором назначены
+//*****
+//Это обработчики запроса server - сервер
+//при запросе 'request',
+//что-то делает -  function(request){request.approved = true;}
+//server.on - Обработчик запроса
+server.on('request', function(request) {
+    request.approved = true;
+});
+
+server.on('request', function(request) {
+    console.log(request);
+});
+//*****
+//.emit - метод, генерирует событие - 'request' и передаёт данные,
+//эти данные попадают в функцию обработчик
+//*****
+//server.emit - Обработчик входящих соединений, который генерирует событие
+server.emit('request', {from: "Клиент"});
+server.emit('request', {from: "Ещё Клиент"});
+//*****
 //***************
 //***************
 var EventEmitter = require('events').EventEmitter;
